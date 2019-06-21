@@ -1,0 +1,40 @@
+package novel.download;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static String URL = "https://inkstone.webnovel.com/chapter/view/cbid/13769162806201605/ccid/XXX/tcbid/13319936803189704";
+	
+	public static void main(String[] args) {JSONParser parser = new JSONParser();
+	 
+    try {
+
+        Object obj = parser.parse(new FileReader("C:\\Users\\HEE-VN\\Desktop\\filelist.json"));
+
+        JSONObject jsonObject = (JSONObject) obj;
+        JSONArray companyList = (JSONArray) jsonObject.get("pageList");
+
+        System.out.println("\nCompany List:");
+        Iterator<Page> iterator = companyList.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next().getcCID());
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }}
+}

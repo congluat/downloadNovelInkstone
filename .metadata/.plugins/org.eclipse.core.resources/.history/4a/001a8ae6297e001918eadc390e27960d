@@ -1,0 +1,5 @@
+package novel.download;
+
+public class HtmlUtil {
+
+}

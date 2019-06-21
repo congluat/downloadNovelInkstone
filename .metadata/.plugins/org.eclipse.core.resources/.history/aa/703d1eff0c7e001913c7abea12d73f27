@@ -1,0 +1,59 @@
+package novel.download;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import com.google.gson.Gson;
+
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static String URL = "https://inkstone.webnovel.com/chapter/view/cbid/13769162806201605/ccid/XXX/tcbid/13319936803189704";
+	
+	public static void main(String[] args) {
+		
+		//JSONParser jsonParser = new JSONParser();
+
+		try (FileReader reader = new FileReader("C:\\Users\\HEE-VN\\Desktop\\filelist.json")) {
+			// Read JSON file
+			
+			JSONArray jSONArray = new JSONArray(reader.toString());
+			List<String> list = new ArrayList<>();
+			for (int i = 0; i < jSONArray.length(); i++) {
+			  JSONObject object = (JSONObject) jSONArray.get(i);
+			  String value = object.getString("name");
+			  System.out.println(value);
+			  list.add(value);
+			}
+
+			
+			
+			Object obj = jsonParser.parse(reader);
+
+			JSONArray pageArr = (JSONArray) obj;
+			
+			
+			
+			for (int i = 0; i < pageArr.size(); i++) {
+				System.out.println(URL.replaceAll("XXX", pageArr.get(i).getClass()));
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

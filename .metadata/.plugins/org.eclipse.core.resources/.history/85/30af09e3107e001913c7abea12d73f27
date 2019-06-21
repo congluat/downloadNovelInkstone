@@ -1,0 +1,85 @@
+package novel.download;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	
+	public static String URL = "https://inkstone.webnovel.com/chapter/view/cbid/13769162806201605/ccid/XXX/tcbid/13319936803189704";
+	public static String jsonPath = "C:\\Users\\HEE-VN\\Desktop\\filelist.json";
+
+	public static void main(String[] args) {
+		String jsonString = readJsonFile(jsonPath);
+
+		try {
+			JSONObject jsonObject = new JSONObject(jsonString);
+			JSONArray result = jsonObject.getJSONArray("pageList");
+			for (int i = 0; i < result.length(); i++) {
+				JSONObject j = result.getJSONObject(i);
+				String s = j.getString("CCID");
+				System.out.println(URL.replaceAll("XXX", s));
+
+			}
+		} catch (JSONException e) {
+            e.printStackTrace();
+        }
+	}
+
+	public static String readJsonFile(String filePath) {
+		String jsonData = "";
+		BufferedReader br = null;
+		try {
+			String line;
+			br = new BufferedReader(new FileReader(filePath));
+			while ((line = br.readLine()) != null) {
+				jsonData += line + "\n";
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null) {
+					br.close();
+				}
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+		return jsonData;
+	}
+	
+	public static void downloadHtml(String urlString) {
+		try {
+	        Url url = new URL(urlString);
+	        is = url.openStream();  // throws an IOException
+	        br = new BufferedReader(new InputStreamReader(is));
+
+	        while ((line = br.readLine()) != null) {
+	            System.out.println(line);
+	        }
+	    } catch (MalformedURLException mue) {
+	         mue.printStackTrace();
+	    } catch (IOException ioe) {
+	         ioe.printStackTrace();
+	    } finally {
+	        try {
+	            if (is != null) is.close();
+	        } catch (IOException ioe) {
+	            // nothing to see here
+	        }
+	    }
+	}
+}

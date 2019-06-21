@@ -1,0 +1,47 @@
+package novel.readhtml;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static String FOLDER ="C:\\Users\\HEE-VN\\Downloads\\test";
+	
+	public static void main(String[] args) {
+		File folder = new File(FOLDER);
+		File[] listOfFiles = folder.listFiles();
+
+		for (int i = 0; i < listOfFiles.length; i++) {
+			readFile(listOfFile[i]);
+		}
+	}
+	
+	public static String readFile(String path) {
+
+		Document doc;
+		try {
+			doc = Jsoup.parse(new File(path), "utf-8");
+
+			System.out.println(doc.title());
+
+			Element article = doc
+					.selectFirst("html body div.g_mn div.g_mn div.g_scroll div.edit-pre-bd div.g_max_wrap.article");
+
+			System.out.println(article.html());
+			return article.html();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+}

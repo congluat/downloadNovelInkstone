@@ -1,0 +1,41 @@
+package novel.download;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static void main(String[] args) {
+		
+		JSONParser jsonParser = new JSONParser();
+
+		try (FileReader reader = new FileReader("C:\\Users\\HEE-VN\\Desktop\\filelist.json")) {
+			// Read JSON file
+			Object obj = jsonParser.parse(reader);
+
+			JSONArray pageArr = (JSONArray) obj;
+			
+			
+			List<Page> listPage = new ArrayList<>();
+			listPage = pageArr;
+			System.out.println(listPage);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

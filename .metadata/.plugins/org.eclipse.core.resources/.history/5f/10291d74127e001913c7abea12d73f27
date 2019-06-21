@@ -1,0 +1,32 @@
+package novel.readhtml;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static void main(String[] args) {
+		Document doc;
+		try {
+			doc = Jsoup.parse(new File("C:\\Users\\HEE-VN\\Downloads\\test\\13319936803189704.html"),"utf-8");
+
+			System.out.println(doc.title());
+
+			Element newsHeadlines = doc.selectFirst(".g_max_wrap .article");
+			
+			 
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

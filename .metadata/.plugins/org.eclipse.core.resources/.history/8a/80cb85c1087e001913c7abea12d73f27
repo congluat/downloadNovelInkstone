@@ -1,0 +1,45 @@
+package novel.download;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static String URL = "https://inkstone.webnovel.com/chapter/view/cbid/13769162806201605/ccid/XXX/tcbid/13319936803189704";
+	
+	public static void main(String[] args) {
+		
+		JSONParser jsonParser = new JSONParser();
+
+		try (FileReader reader = new FileReader("C:\\Users\\HEE-VN\\Desktop\\filelist.json")) {
+			// Read JSON file
+			Object obj = jsonParser.parse(reader);
+
+			JSONArray pageArr = (JSONArray) obj;
+			
+			
+			List<Page> listPage = new ArrayList<>();
+			listPage = pageArr;
+			for (int i = 0; i < listPage.size(); i++) {
+				System.out.println(URL.replaceAll("XXX", listPage.get(i).getcCID()));
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

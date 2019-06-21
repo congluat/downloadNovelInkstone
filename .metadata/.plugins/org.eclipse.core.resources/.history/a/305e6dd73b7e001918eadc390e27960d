@@ -1,0 +1,77 @@
+package novel.readhtml;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	
+	public static String FOLDER = "C:\\Users\\HEE-VN\\Downloads\\test";
+	public static Map<String, String> htmlMap = new LinkedHashMap<String, String>();
+	public static String jsonPath = "C:/Users/HEE-VN/Desktop/filelist.json";
+	public static List<String> listTitle = new LinkedList<String>();
+	
+	public static void main(String[] args) {
+		File folder = new File(FOLDER);
+		File[] listOfFiles = folder.listFiles();
+
+		for (int i = 0; i < listOfFiles.length; i++) {
+			readFile(listOfFiles[i]);
+		}
+	}
+
+	public static void loadJson() {
+
+		String jsonString = readJsonFile(jsonPath);
+
+		try {
+			JSONObject jsonObject = new JSONObject(jsonString);
+			JSONArray result = jsonObject.getJSONArray("pageList");
+			for (int i = 0; i < result.length(); i++) {
+				JSONObject j = result.getJSONObject(i);
+				String index = j.getString("index");
+				String ccid = j.getString("CCID");
+				String title = j.getString("chaptertitle");
+				listTitle.add(title);
+				System.out.println(URL.replaceAll("XXX", ccid));
+				//printOutHtml(URL.replaceAll("XXX", ccid));	
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	
+	}
+	
+	public static void readFile(File file) {
+
+		Document doc;
+		try {
+			doc = Jsoup.parse(file, "utf-8");
+
+			// System.out.println("File: "+ file.getName());
+
+			Element article = doc
+					.selectFirst("html body div.g_mn div.g_mn div.g_scroll div.edit-pre-bd div.g_max_wrap.article");
+			htmlMap.put(article.select("h3").text(), article.html());
+			// System.out.println(article.html());
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

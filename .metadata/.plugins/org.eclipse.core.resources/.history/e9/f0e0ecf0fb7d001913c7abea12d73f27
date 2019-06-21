@@ -1,0 +1,36 @@
+package novel.download;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.ParseException;
+
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static void main(String[] args) {
+		
+		JSONParser jsonParser = new JSONParser();
+
+		try (FileReader reader = new FileReader("employees.json")) {
+			// Read JSON file
+			Object obj = jsonParser.parse(reader);
+
+			JSONArray employeeList = (JSONArray) obj;
+			System.out.println(employeeList);
+
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+}

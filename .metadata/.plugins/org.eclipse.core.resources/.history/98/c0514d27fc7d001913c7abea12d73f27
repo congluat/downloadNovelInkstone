@@ -1,0 +1,14 @@
+package novel.download;
+
+public class Page {
+	private String cBID;
+	private String cCID;
+	private String chaptertitle;
+	private String cVID;
+	private String newCBID;
+	private String current;
+	private String index;
+	
+	
+	
+}
