@@ -26,7 +26,7 @@ public class App {
 
 	public static String FOLDER = "C:\\Users\\HEE-VN\\Downloads\\test";
 	public static String HTML_OUT = "C:/Users/HEE-VN/Desktop/outhtml.html";
-	public static String jsonPath = "C:/Users/HEE-VN/Desktop/filelist.json";
+	public static String jsonPath = "C:\\Users\\HEE-VN\\Documents\\workspace\\eclipse\\downloadNovel\\filelist.json";
 	
 	public static Map<String, String> htmlMap = new LinkedHashMap<String, String>();
 	public static List<Page> listChapters = new LinkedList<Page>();

@@ -23,7 +23,7 @@ import org.json.JSONObject;
 public class App {
 
 	public static String URL = "https://inkstone.webnovel.com/chapter/view/cbid/newCBID-X/ccid/CCID-X/tcbid/CBID-X";
-	public static String jsonPath = "C:/Users/HEE-VN/Desktop/filelist.json";
+	public static String jsonPath = "C:\\Users\\HEE-VN\\Documents\\workspace\\eclipse\\downloadNovel\\filelist.json";
 	public static List<String> listTitle = new LinkedList<>();
 
 	public static void main(String[] args) {
@@ -35,13 +35,28 @@ public class App {
 			for (int i = 0; i < result.length(); i++) {
 				JSONObject j = result.getJSONObject(i);
 				String index = j.getString("index");
-				String newCBID = j.getString("newCBID");
+				String newCBID = null;
+				try {
+					newCBID = j.getString("newCBID");
+				} catch (Exception e) {
+				}
 				String ccid = j.getString("CCID");
-				String CBID = j.getString("CBID");
+				String CBID = null;
+				try {
+					CBID = j.getString("CBID");
+				} catch (Exception e) {
+				}
+
 				String title = j.getString("chaptertitle");
 				listTitle.add(title);
-				System.out.println(URL.replaceAll("CCID-X", ccid).replaceAll("newCBID-X", newCBID).replaceAll("CBID-X", CBID));
-				//printOutHtml(URL.replaceAll("XXX", ccid));	
+				if (newCBID == null || newCBID.equals("")) {
+					System.out.println(URL.replaceAll("CCID-X", ccid).replaceAll("newCBID-X", CBID)
+							.replaceAll("/tcbid/CBID-X", ""));
+				} else {
+					System.out.println(
+							URL.replaceAll("CCID-X", ccid).replaceAll("newCBID-X", newCBID).replaceAll("CBID-X", CBID));
+				}
+				// printOutHtml(URL.replaceAll("XXX", ccid));
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -49,7 +64,8 @@ public class App {
 	}
 
 	public static void writeListToFile() {
-		try (FileWriter writer = new FileWriter("C:/Users/HEE-VN/Desktop/title.txt"); BufferedWriter bw = new BufferedWriter(writer)) {
+		try (FileWriter writer = new FileWriter("C:/Users/HEE-VN/Desktop/title.txt");
+				BufferedWriter bw = new BufferedWriter(writer)) {
 			for (int i = 0; i < listTitle.size(); i++) {
 				bw.write(listTitle.get(i));
 			}
