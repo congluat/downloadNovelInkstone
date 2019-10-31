@@ -31,7 +31,7 @@ public class App {
 	public static Map<String, String> htmlMap = new LinkedHashMap<String, String>();
 	public static List<Page> listChapters = new LinkedList<Page>();
 
-	
+	public static List<String> failedChap = new LinkedList<>();
 	
 	public static void main(String[] args) {
 		File folder = new File(FOLDER);
@@ -42,6 +42,10 @@ public class App {
 		}
 		loadJson();
 		exportHtml();
+		System.out.println("FAILED REPORT");
+		for (String s : failedChap) {
+			System.out.println(s);
+		}
 	}
 
 	public static void exportHtml() {
@@ -49,11 +53,13 @@ public class App {
 			for (int i = 0; i < listChapters.size(); i++) {
 				if (htmlMap.get(listChapters.get(i).getChaptertitle()) != null) {
 					bw.write(htmlMap.get(listChapters.get(i).getChaptertitle()));
-					System.out.println("Chapter - " + listChapters.get(i).getIndex() + " - "
-							+ listChapters.get(i).getChaptertitle() + " ----------- DONE");
+					/*System.out.println("Chapter - " + listChapters.get(i).getIndex() + " - "
+							+ listChapters.get(i).getChaptertitle() + " ----------- DONE");*/
 				} else {
-					System.out.println("Chapter - " + listChapters.get(i).getIndex() + " - "
+					failedChap.add("Chapter - " + listChapters.get(i).getIndex() + " - "
 							+ listChapters.get(i).getChaptertitle() + " ----------- FAILED");
+					/*System.out.println("Chapter - " + listChapters.get(i).getIndex() + " - "
+							+ listChapters.get(i).getChaptertitle() + " ----------- FAILED");*/
 				}
 
 			}
